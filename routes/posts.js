@@ -5,9 +5,10 @@ const success = require("../Handlers/successHandle");
 const POST = require("../models/posts")
 const USER = require("../models/users")
 const Header = require("../Header/Headers");
+const appError = require("..//service/Error");
 
 //第四週作業
-router.get("/", async (req, res) => {
+router.get("/", async (req, res,next) => {
     const timeSort = req.query.timeSort == "asc" ? "createdAt" : "-createdAt"
     const q = req.query.q !== undefined ? { "content": new RegExp(req.query.q) } : {}; //q是url的參數
     //http://localhost:3005/posts?q=For
@@ -29,7 +30,7 @@ router.get("/", async (req, res) => {
 
 })
 
-router.post("/", async (req, res) => {
+router.post("/", async (req, res,next) => { //要記得next, 否則service/Error.js 無法使用
     try {
         const data = req.body;
         //console.log(req)
@@ -39,7 +40,7 @@ router.post("/", async (req, res) => {
         否則沒有req.body的資料
         */
 
-        //console.log(data);
+        //cconsole.log(data.content);
         if (data.content !== undefined) {
             const newPost = await POST.create(data);
             res.status(200).json({
@@ -48,16 +49,21 @@ router.post("/", async (req, res) => {
                 newPost
             })
         } else {
-            res.status(400).json({
-                "status": "false",
-                "message": "欄位有誤",
-            })
+            // res.status(400).json({
+            //     "status": "false",
+            //     "message": "欄位有誤",
+            // })
+            return next(appError(400,"你沒有填寫content資料",next))
         }
     } catch (err) {
-        res.status(200).json({
-            "status": "false",
-            "message": err,
-        })
+        // 如果在這直接寫, 就無法統一在server.js 的express錯誤處理觸發
+        // res.status(200).json({
+        //     "status": "false",
+        //     "message": err,
+        // })
+
+        // 用next 才可以在server.js 的express 錯誤處理觸發
+        return next(err);
     }
 })
 //第四週作業
