@@ -5,10 +5,11 @@ const success = require("../Handlers/successHandle");
 const POST = require("../models/posts")
 const USER = require("../models/users")
 const Header = require("../Header/Headers");
-const appError = require("..//service/Error");
+const appError = require("../service/Error");
+const handleErrorAsync = require("../service/handleErrorAsync");
 
-//第四週作業
-router.get("/", async (req, res,next) => {
+//第五週作業
+router.get("/", async (req, res, next) => {
     const timeSort = req.query.timeSort == "asc" ? "createdAt" : "-createdAt"
     const q = req.query.q !== undefined ? { "content": new RegExp(req.query.q) } : {}; //q是url的參數
     //http://localhost:3005/posts?q=For
@@ -30,42 +31,90 @@ router.get("/", async (req, res,next) => {
 
 })
 
-router.post("/", async (req, res,next) => { //要記得next, 否則service/Error.js 無法使用
-    try {
-        const data = req.body;
-        //console.log(req)
-        /*如要使用req.body 必須在server.js 加入
-        app.use(express.json());
-        app.use(express.urlencoded({ extended: false }));
-        否則沒有req.body的資料
-        */
-
-        //cconsole.log(data.content);
-        if (data.content !== undefined) {
-            const newPost = await POST.create(data);
-            res.status(200).json({
-                "status": "success",
-                "message": "Create done",
-                newPost
-            })
-        } else {
-            // res.status(400).json({
-            //     "status": "false",
-            //     "message": "欄位有誤",
-            // })
-            return next(appError(400,"你沒有填寫content資料",next))
-        }
-    } catch (err) {
-        // 如果在這直接寫, 就無法統一在server.js 的express錯誤處理觸發
-        // res.status(200).json({
-        //     "status": "false",
-        //     "message": err,
-        // })
-
-        // 用next 才可以在server.js 的express 錯誤處理觸發
-        return next(err);
+router.post("/", handleErrorAsync(async (req, res, next) => { //要記得next, 否則service/Error.js 無法使用
+    const data = req.body;
+    //自定義錯誤
+    if (data.name == undefined) {
+        return next(appError(400, "未填寫name 資料", next))
     }
-})
+    if (data.content == undefined) {
+        return next(appError(400, "未填寫content 資料", next))
+    }
+    if (data.tags == undefined) {
+        return next(appError(400, "未填寫tags 資料", next))
+    }
+    //自定義錯誤
+    
+    const newPost = await POST.create(data);
+    res.status(200).json({
+        "status": "success",
+        "message": "Create done",
+        newPost
+    })
+}))
+//第五週作業
+
+
+
+//第四週作業
+// router.get("/", async (req, res, next) => {
+//     const timeSort = req.query.timeSort == "asc" ? "createdAt" : "-createdAt"
+//     const q = req.query.q !== undefined ? { "content": new RegExp(req.query.q) } : {}; //q是url的參數
+//     //http://localhost:3005/posts?q=For
+//     //const q = req.query.content !== undefined ? { "content": new RegExp(req.query.content) } : {}; 
+//     //是url的參數, http://localhost:3005/posts?content=For
+//     //console.log(q);
+//     const allPosts = await POST.find(q).populate({
+//         path: "user", // POST的user欄位
+//         select: "name"
+//     }).sort(timeSort);
+//     // asc 遞增(由小到大，由舊到新) createdAt ; 
+//     // desc 遞減(由大到小、由新到舊) "-createdAt"
+
+//     res.status(200).json({
+//         "status": "success",
+//         "message": "Search done",
+//         data: allPosts
+//     })
+
+// })
+
+// router.post("/", async (req, res, next) => { //要記得next, 否則service/Error.js 無法使用
+//     try {
+//         const data = req.body;
+//         //console.log(req)
+//         /*如要使用req.body 必須在server.js 加入
+//         app.use(express.json());
+//         app.use(express.urlencoded({ extended: false }));
+//         否則沒有req.body的資料
+//         */
+
+//         //cconsole.log(data.content);
+//         if (data.content !== undefined) {
+//             const newPost = await POST.create(data);
+//             res.status(200).json({
+//                 "status": "success",
+//                 "message": "Create done",
+//                 newPost
+//             })
+//         } else {
+//             // res.status(400).json({
+//             //     "status": "false",
+//             //     "message": "欄位有誤",
+//             // })
+//             return next(appError(400, "你沒有填寫content資料", next))
+//         }
+//     } catch (err) {
+//         // 如果在這直接寫, 就無法統一在server.js 的express錯誤處理觸發
+//         // res.status(200).json({
+//         //     "status": "false",
+//         //     "message": err,
+//         // })
+
+//         // 用next 才可以在server.js 的express 錯誤處理觸發
+//         return next(err);
+//     }
+// })
 //第四週作業
 
 

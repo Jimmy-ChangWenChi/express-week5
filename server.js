@@ -7,6 +7,13 @@ const app = express();
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
 
+//重大錯誤
+process.on("uncaughtException",err=>{
+    console.error("Uncaught Exception!")
+    console.error(err);
+    process.exit(1);
+})
+
 const error = require("./Handlers/errorHandle");
 const success = require("./Handlers/successHandle");
 
@@ -52,6 +59,7 @@ const resErrorProd = (err,res)=>{
             message:err.message
         });
     }else{
+        console.error("出現重大訊息",err);
         res.status(500).json({
             status:"error",
             message:"系統錯誤,請找系統管理員"
@@ -89,5 +97,5 @@ process.on("unhandledRejection",(err,promise) => {
 })
 
 
-app.listen(process.env.SERVERPORT);
-//app.listen(process.env.PORT || process.env.SERVERPORT);
+//app.listen(process.env.SERVERPORT);
+app.listen(process.env.PORT || process.env.SERVERPORT);

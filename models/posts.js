@@ -20,7 +20,7 @@ const postSchema = new mongoose.Schema(
             type:String,
             required:[true,"content 未填寫"]
         },
-        createAt:{
+        creatdeAt:{
             type:Date,
             default:Date.now,
             select:false
