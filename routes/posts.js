@@ -34,7 +34,7 @@ router.get("/", async (req, res, next) => {
 router.post("/", handleErrorAsync(async (req, res, next) => { //要記得next, 否則service/Error.js 無法使用
     const data = req.body;
     //自定義錯誤
-    if (data.name == undefined) {
+    if (data.user == undefined) {
         return next(appError(400, "未填寫name 資料", next))
     }
     if (data.content == undefined) {
@@ -44,7 +44,7 @@ router.post("/", handleErrorAsync(async (req, res, next) => { //要記得next, �
         return next(appError(400, "未填寫tags 資料", next))
     }
     //自定義錯誤
-    
+
     const newPost = await POST.create(data);
     res.status(200).json({
         "status": "success",
