@@ -33,9 +33,10 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", handleErrorAsync(async (req, res, next) => { //要記得next, 否則service/Error.js 無法使用
     
-    const result = await Adventure.findById(user).exec();
-    
     const data = req.body;
+
+    const result = await USER.findById(data.user).exec();//因為data.user的資料是從USER來, 如果用POST會找不到資料
+    //console.log(result);
     //自定義錯誤
     if (data.user == undefined) {
         return next(appError(400, "未填寫name 資料", next))
