@@ -1,11 +1,11 @@
 const http = require("http");
 const mongoose = require("mongoose");
-const POST = require("./models/posts");
+const POST = require("./models/postsModel");
 const express = require("express");
 const app = express();
 
 const dotenv = require("dotenv");
-dotenv.config({ path: "./config.env" });
+dotenv.config({ path: "./config.env"});
 
 //重大錯誤
 process.on("uncaughtException",err=>{
@@ -18,11 +18,12 @@ const error = require("./Handlers/errorHandle");
 const success = require("./Handlers/successHandle");
 
 const posts = require("./routes/posts");
-
+const users = require("./routes/users");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/posts", posts);
+app.use("/users", users);
 
 //設定資料庫資料
 const DB = process.env.MONGODB.replace('<password>', process.env.PW);
