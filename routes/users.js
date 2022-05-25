@@ -11,15 +11,20 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const validator =require("validator");
 
-const dotenv = require("dotenv");
-dotenv.config({ path: "./test.env"});
+// const dotenv = require("dotenv");
+// dotenv.config({ path: "./test.env"});
 
 const generateSendJWT = (user,statusCode,res)=>{
+
+    //每次進來就會產生出新的token, 要是舊的token還沒過期, 就會有多個token產生
+    //console.log(3);
     //產生token
 
     const token = jwt.sign({id:user._id,name:user.name},process.env.JWT_SECRET,{
         expiresIn: process.env.JWT_EXPIRES_DAY
     });
+    console.log(4)
+    console.log(token);
     user.password = undefined;
     res.status(statusCode).json({
         user:{
@@ -30,7 +35,8 @@ const generateSendJWT = (user,statusCode,res)=>{
 }
 
 router.post("/sign_up", handleErrorAsync( async(req,res,next)=>{
-    let {name, email,password, confirmPassword} = req.body;
+    let {name, email, password, confirmPassword} = req.body;
+    console.log(1);
 
     if(!email||!password||!name||!confirmPassword){
         return next(appError("400","欄位未填寫正確",next))
@@ -47,14 +53,17 @@ router.post("/sign_up", handleErrorAsync( async(req,res,next)=>{
     if(!validator.isEmail(email)){
         return next(appError("400","mail格式錯誤",next));
     }
-
+    console.log(2);
     //加密密碼
     password = await bcrypt.hash(req.body.password,12);
-    const newUser = await User.create({
+    console.log(password);
+    const newUser = await USER.create({
         email,
         password,
         name
     });
+
+    console.log(11);
     generateSendJWT(newUser,201,res);
 
 }));
@@ -101,7 +110,7 @@ const isAuth = handleErrorAsync(async(req,res,next)=>{
     next();
 });
 
-router.get("/profile/",isAuth,handleErrorAsync(async(req,res,next)=>{
+router.get("/profile",isAuth,handleErrorAsync(async(req,res,next)=>{
     res.status(200).json({
         status:"success",
         user:req.user
@@ -125,11 +134,22 @@ router.post("/updatePassword", isAuth, handleErrorAsync (async(req,res,next)=>{
 }))
 
 router.patch("/profile",isAuth, handleErrorAsync (async(req,res,next)=>{
-    const {name,photo} = req.body;
+    const {name,photo,sex} = req.body;
 
-    const user = await USER.findByIdAndUpdate(req.user.id,{
+    if(!name || !sex){
+        return next(appError("400","請填寫修改資訊",next));
+    }
+    
+    const editUser = await USER.findByIdAndUpdate(req.user.id,{
         name: name,
-        photo:photo
+        photo:photo,
+        sex:sex
+    });
+    const user = await USER.findById(req.user.id)
+
+    res.status(200).json({
+        "status":"success",
+        user
     });
 
 

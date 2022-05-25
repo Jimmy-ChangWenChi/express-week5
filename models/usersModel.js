@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
     enum:["male","female"]
   },
   password:{
-    type:string,
+    type:String,
     require:[true,"請輸入密碼"],
     minlength:8,
     select:false
