@@ -9,7 +9,7 @@ const appError = require("../service/Error");
 const handleErrorAsync = require("../service/handleErrorAsync");
 
 //第五週作業
-router.get("/", async (req, res, next) => {
+router.get("/", handleErrorAsync(async (req, res, next) => {
     const timeSort = req.query.timeSort == "asc" ? "createdAt" : "-createdAt"
     const q = req.query.q !== undefined ? { "content": new RegExp(req.query.q) } : {}; //q是url的參數
     //http://localhost:3005/posts?q=For
@@ -29,7 +29,7 @@ router.get("/", async (req, res, next) => {
         data: allPosts
     })
 
-})
+}))
 
 router.post("/", handleErrorAsync(async (req, res, next) => { //要記得next, 否則service/Error.js 無法使用
     
