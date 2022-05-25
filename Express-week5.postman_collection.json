@@ -32,7 +32,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"user\":\"627920bffb8497208f4c34df\",\n    \"tags\": \"JUN\",\n    \"content\": \"NO.3\",\n    \"likes\": 5500\n}",
+					"raw": "{\n    \"user\":\"62792133fb8497208f4c34e1\",\n    \"tags\": \"SAM\",\n    \"content\": \"NO.3\",\n    \"likes\": 1500\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -55,12 +55,62 @@
 			"response": []
 		},
 		{
+			"name": "PATCH",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"JIIMMM\",\n    \"tags\":\"TEST RESULT\",\n    \"content\":\"TRY IT\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://glacial-dawn-85491.herokuapp.com/posts/628e3eb52069135745f8be77",
+					"protocol": "https",
+					"host": [
+						"glacial-dawn-85491",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						"628e3eb52069135745f8be77"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://glacial-dawn-85491.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"glacial-dawn-85491",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get query",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://glacial-dawn-85491.herokuapp.com/posts?q=For",
+					"raw": "https://glacial-dawn-85491.herokuapp.com/posts?q=1",
 					"protocol": "https",
 					"host": [
 						"glacial-dawn-85491",
@@ -73,8 +123,29 @@
 					"query": [
 						{
 							"key": "q",
-							"value": "For"
+							"value": "1"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE ONE",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://glacial-dawn-85491.herokuapp.com/posts/628e3eb52069135745f8be77",
+					"protocol": "https",
+					"host": [
+						"glacial-dawn-85491",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						"628e3eb52069135745f8be77"
 					]
 				}
 			},
@@ -87,7 +158,37 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"user\":\"627920bffb8497208f4c34df\",\n    \"tags\": \"JUN\",\n    \"content\": \"NO.3\",\n    \"likes\": 5500\n}",
+					"raw": "{\n    \"user\":\"627920bffb8497208f4c34df\",\n    \"tags\": \"Jimmy\",\n    \"content\": \"NO.4\",\n    \"likes\": 100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3005/posts",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3005",
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Local Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"JIIMMM\",\n    \"tags\":\"TEST RESULT\",\n    \"content\":\"TRY IT\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
