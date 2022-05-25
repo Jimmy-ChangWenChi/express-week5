@@ -46,7 +46,7 @@ mongoose.connect(DB)
 //404錯誤
 app.use(function(req,res,next){
     res.status(404).json({
-        status:"faluse",
+        status:"false",
         message:"找不到路由"
     })
 })

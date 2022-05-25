@@ -32,6 +32,9 @@ router.get("/", async (req, res, next) => {
 })
 
 router.post("/", handleErrorAsync(async (req, res, next) => { //要記得next, 否則service/Error.js 無法使用
+    
+    const result = await Adventure.findById(user).exec();
+    
     const data = req.body;
     //自定義錯誤
     if (data.user == undefined) {
@@ -43,6 +46,10 @@ router.post("/", handleErrorAsync(async (req, res, next) => { //要記得next, �
     if (data.tags == undefined) {
         return next(appError(400, "未填寫tags 資料", next))
     }
+    if(result == null){
+        return next(appError(400,"無此使用者",next))
+    }
+
     //自定義錯誤
 
     const newPost = await POST.create(data);
@@ -50,6 +57,47 @@ router.post("/", handleErrorAsync(async (req, res, next) => { //要記得next, �
         "status": "success",
         "message": "Create done",
         newPost
+    })
+}))
+
+router.delete("/", handleErrorAsync(async (req, res) => {
+    await POST.deleteMany();
+    const allPosts = await POST.find()
+    res.status(200).json({
+        "status": "success",
+        "message": "Delete done",
+        allPosts
+    })
+}))
+router.delete("/:id", handleErrorAsync(async (req, res) => {
+    const id = req.params.id;
+    await POST.findByIdAndDelete(id)
+    const allPosts = await POST.find();
+    res.status(200).json({
+        "status": "success",
+        "message": "Delete id Done",
+        "All Data": allPosts
+    })
+}))
+
+router.patch("/:id", handleErrorAsync(async (req, res) => {
+    const id = req.params.id;
+    let data = req.body;
+    if (data.name == undefined) {
+        return next(appError(400, "未填寫name 資料", next))
+    }
+    if (data.tags == undefined) {
+        return next(appError(400, "未填寫tags 資料", next))
+    }
+    if (data.content == undefined) {
+        return next(appError(400, "未填寫content 資料", next))
+    }
+    await POST.findByIdAndUpdate(id, data);
+    editPost = await POST.findById(id)
+    res.status(200).json({
+        "status": "success",
+        "message": "update done",
+        editPost
     })
 }))
 //第五週作業
