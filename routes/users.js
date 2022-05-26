@@ -17,7 +17,7 @@ dotenv.config({ path: "./config.env"});
 const generateSendJWT = (user,statusCode,res)=>{
 
     //每次進來就會產生出新的token, 要是舊的token還沒過期, 就會有多個token產生
-    //console.log(3);
+    console.log(3);
     //產生token
 
     const token = jwt.sign({id:user._id,name:user.name},process.env.JWT_SECRET,{
