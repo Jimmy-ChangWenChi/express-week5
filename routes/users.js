@@ -11,8 +11,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const validator =require("validator");
 
-// const dotenv = require("dotenv");
-// dotenv.config({ path: "./test.env"});
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config.env"});
 
 const generateSendJWT = (user,statusCode,res)=>{
 
