@@ -23,10 +23,11 @@ const generateSendJWT = (user,statusCode,res)=>{
     const token = jwt.sign({id:user._id,name:user.name},process.env.JWT_SECRET,{
         expiresIn: process.env.JWT_EXPIRES_DAY
     });
-    console.log(4)
-    console.log(token);
+    //console.log(4)
+    //console.log(token);
     user.password = undefined;
     res.status(statusCode).json({
+        "status":"success",
         user:{
             token,
             name:user.name
@@ -36,7 +37,7 @@ const generateSendJWT = (user,statusCode,res)=>{
 
 router.post("/sign_up", handleErrorAsync( async(req,res,next)=>{
     let {name, email, password, confirmPassword} = req.body;
-    console.log(1);
+    //console.log(1);
 
     if(!email||!password||!name||!confirmPassword){
         return next(appError("400","欄位未填寫正確",next))
@@ -53,7 +54,7 @@ router.post("/sign_up", handleErrorAsync( async(req,res,next)=>{
     if(!validator.isEmail(email)){
         return next(appError("400","mail格式錯誤",next));
     }
-    console.log(2);
+    //console.log(2);
     //加密密碼
     password = await bcrypt.hash(req.body.password,12);
     console.log(password);
@@ -63,7 +64,7 @@ router.post("/sign_up", handleErrorAsync( async(req,res,next)=>{
         name
     });
 
-    console.log(11);
+    //console.log(11);
     generateSendJWT(newUser,201,res);
 
 }));
@@ -119,6 +120,10 @@ router.get("/profile",isAuth,handleErrorAsync(async(req,res,next)=>{
 
 router.post("/updatePassword", isAuth, handleErrorAsync (async(req,res,next)=>{
     const {password, confirmPassword} = req.body;
+
+    if(!validator.isLength(password,{min:8})){
+        return next(appError("400","密碼字數少於8碼",next));
+    }
 
     if(password !== confirmPassword){
         return next(appError("400","密碼不一致",next))
