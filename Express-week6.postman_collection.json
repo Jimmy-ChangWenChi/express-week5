@@ -1,0 +1,340 @@
+{
+	"info": {
+		"_postman_id": "912139c7-bad1-4b31-9e8f-0538f714e488",
+		"name": "Express-week6",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19965294"
+	},
+	"item": [
+		{
+			"name": "Local sign_up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Jun\",\n    \"email\":\"ang@mail.com\",\n    \"password\":\"334567811\",\n    \"confirmPassword\":\"334567811\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3005/users/sign_up",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3005",
+					"path": [
+						"users",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Local sign_in",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"ang@mail.com\",\n    \"password\":\"334567811\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3005/users/sign_in",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3005",
+					"path": [
+						"users",
+						"sign_in"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Local Update Password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGY3ZTAzZjk1NTI4MzgyM2Y3MDBhMiIsIm5hbWUiOiJKdW4iLCJpYXQiOjE2NTM1NzExMDAsImV4cCI6MTY1NDE3NTkwMH0.4dg5GMmFynh8VN9lfvbfNXPsX7x836LGPrure-LFDxA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\":\"12345\",\n    \"confirmPassword\":\"12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3005/users/updatePassword",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3005",
+					"path": [
+						"users",
+						"updatePassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Local Get profile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGY3ZTAzZjk1NTI4MzgyM2Y3MDBhMiIsIm5hbWUiOiJKdW4iLCJpYXQiOjE2NTM1NzExMDAsImV4cCI6MTY1NDE3NTkwMH0.4dg5GMmFynh8VN9lfvbfNXPsX7x836LGPrure-LFDxA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:3005/users/profile",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3005",
+					"path": [
+						"users",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Local patch profile",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGY3ZTAzZjk1NTI4MzgyM2Y3MDBhMiIsIm5hbWUiOiJKdW4iLCJpYXQiOjE2NTM1NzExMDAsImV4cCI6MTY1NDE3NTkwMH0.4dg5GMmFynh8VN9lfvbfNXPsX7x836LGPrure-LFDxA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Lee\",\n    \"photo\":\"png\",\n    \"sex\":\"female\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3005/users/profile",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3005",
+					"path": [
+						"users",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "heroku login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"SAM\",\n    \"email\":\"SAM@gmail.com\",\n    \"password\":\"a123456789\",\n    \"confirmPassword\":\"a123456789\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://glacial-dawn-85491.herokuapp.com/users/sign_up",
+					"protocol": "https",
+					"host": [
+						"glacial-dawn-85491",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Heroku sign_in",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"SAM@gmail.com\",\n    \"password\":\"a123456789\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://glacial-dawn-85491.herokuapp.com/users/sign_in",
+					"protocol": "https",
+					"host": [
+						"glacial-dawn-85491",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"sign_in"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "heroku Update Password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTBkZmQ5MWU2Y2EwOTQ4YWM1NDRjNiIsIm5hbWUiOiJTQU0iLCJpYXQiOjE2NTM2NjIwMzQsImV4cCI6MTY1NDI2NjgzNH0.VeGAtA1v0F5iHinIZiHcVhLIOfFGVpOdnMnmofG6kVU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\":\"1234567894\",\n    \"confirmPassword\":\"1234567894\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://glacial-dawn-85491.herokuapp.com/users/updatePassword",
+					"protocol": "https",
+					"host": [
+						"glacial-dawn-85491",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"updatePassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "heroku get",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTBkZmQ5MWU2Y2EwOTQ4YWM1NDRjNiIsIm5hbWUiOiJTQU0iLCJpYXQiOjE2NTM2NjIwMzQsImV4cCI6MTY1NDI2NjgzNH0.VeGAtA1v0F5iHinIZiHcVhLIOfFGVpOdnMnmofG6kVU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://glacial-dawn-85491.herokuapp.com/users/profile",
+					"protocol": "https",
+					"host": [
+						"glacial-dawn-85491",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Heroku patch profile",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTBkZmQ5MWU2Y2EwOTQ4YWM1NDRjNiIsIm5hbWUiOiJTQU0iLCJpYXQiOjE2NTM2NjIwMzQsImV4cCI6MTY1NDI2NjgzNH0.VeGAtA1v0F5iHinIZiHcVhLIOfFGVpOdnMnmofG6kVU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Sam Lee\",\n    \"photo\":\"img\",\n    \"sex\":\"male\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://glacial-dawn-85491.herokuapp.com/users/profile",
+					"protocol": "https",
+					"host": [
+						"glacial-dawn-85491",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"profile"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
