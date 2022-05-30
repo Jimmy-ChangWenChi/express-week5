@@ -19,11 +19,13 @@ const success = require("./Handlers/successHandle");
 
 const posts = require("./routes/posts");
 const users = require("./routes/users");
+const upload = require("./routes/upload");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/posts", posts);
 app.use("/users", users);
+app.use("/upload",upload);
 
 //設定資料庫資料
 const DB = process.env.MONGODB.replace('<password>', process.env.PW);
